@@ -1,0 +1,96 @@
+[
+  {
+    kind: "Listing",
+    data: {
+      children: [
+        {
+          kind: "ts",
+          data: {
+            "subreddit": "oddlysatisfying",
+            "title": "Freshy Fallen Snow",
+            "upvote_ratio": .97,
+            "total_awards_received": 7,
+            "author_fullname": "t2_7m66z",
+            "score": 28339,
+            "created": 1669139605,
+            "over_18": false,
+            "all_awardings": [
+              {
+                "name": "Silver",
+                "coin_price": 100,
+                "count": 1
+              },
+
+            ],
+            "subreddit_id": "t5_2x93b",
+            "id": "z201r0",
+            "author": "dittidot",
+            "num_comments": 401,
+            "created_utc": 1669139605,
+            "is_video": false
+          }
+        }
+      ]
+    }
+  },
+  {
+    "kind": "Listing",
+    "data": [
+      {
+        // these are all comments
+        "children": [
+          {
+            "kind": "t1",
+            "data": {
+              "subreddit_id": "t5_2x93b",
+              "total_awards_received": 0,
+              "subreddit": "oddlysatisfying",
+              "replies": { // this can be empty string??
+                "kind": "Listing",
+                "data": {
+                  "children": [
+                    {
+                      "kind": "t1",
+                      "data": {
+                        // same comment format as parent
+                        "subreddit_id": "t5_2x93b",
+                        "total_awards_received": 0,
+                        "subreddit": "oddlysatisfying",
+                        "replies": "",
+                        "id": "ixegr9j",
+                        "gilded": 0,
+                        "author": "justmelmb",
+                        "body": "When I lived up north pictures like that were my favorite things before any bird any sun melting caused any changes, those are the best pictures",
+                        "created_utc": 1669150021,
+                        "created": 1669150021,
+                        "controversiality": 0,
+                        "depth": 2,
+                        "edited": false,
+
+                      }
+                    }
+                  ]
+                }
+              },
+              "id": "ixe4g95",
+              "gilded": 0,
+              "author": "antillian",
+              "created_utc": 1669145149,
+              "parent_id": "t1_ixdt3yi",
+              "score": 121,
+              "author_fullname": "t2_495cl",
+              "body": "I was thinking the same. I really want to run my hands through it. At the same time, I don’t because it’ll ruin it.",
+              "edited": false,
+              "created": 1669145149,
+              "depth": 1,
+              "controversiality": 0,
+            }
+
+          }
+        ]
+      }
+
+    ]
+
+  }
+]
