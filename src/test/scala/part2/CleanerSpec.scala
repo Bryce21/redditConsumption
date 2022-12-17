@@ -6,7 +6,8 @@ import org.apache.kafka.streams.TopologyTestDriver
 import org.apache.kafka.streams.test.TestRecord
 import org.scalatest.funspec.AnyFunSpec
 import part2.AProcessor.RedditURL
-import part2.data.TotalRedditPost
+import part2.data.dirty.web.RawWebData
+
 
 
 case class CleanerSpec() extends AnyFunSpec {
@@ -18,18 +19,18 @@ case class CleanerSpec() extends AnyFunSpec {
 
     val driver: TopologyTestDriver = new TopologyTestDriver(processor.buildTopology)
 
-    val inputTopic = driver.createInputTopic[RedditURL, TotalRedditPost](
+    val inputTopic = driver.createInputTopic[RedditURL, RawWebData](
       testTopicName,
       new StringSerializer,
-      TotalRedditPost.totalPostSerde.serializer()
+      RawWebData.serializer.serializer()
     )
 
-    println(TestHelper.createTotalPostFromJson.asJson)
+    println(TestHelper.createRawWebData.asJson)
 
     inputTopic.pipeInput(
-      new TestRecord[RedditURL, TotalRedditPost](
+      new TestRecord[RedditURL, RawWebData](
         "http://reddit.com/test",
-        TestHelper.createTotalPostFromJson
+        TestHelper.createRawWebData
       )
     )
   }

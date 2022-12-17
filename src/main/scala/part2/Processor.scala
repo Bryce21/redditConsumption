@@ -8,7 +8,7 @@ import org.apache.kafka.streams.scala.serialization.Serdes
 import org.apache.kafka.streams.scala.serialization.Serdes._
 import org.apache.kafka.streams.{KafkaStreams, StreamsConfig, Topology}
 import part2.AProcessor.RedditURL
-import part2.data.TotalRedditPost
+import part2.data.dirty.web.RawWebData
 import part2.implicits.serde
 
 import java.util.Properties
@@ -40,7 +40,7 @@ abstract class AProcessor(
     Part 3 get stream
     This is where logic to process would
    */
-  def startProcessing(): KStream[AProcessor.RedditURL, TotalRedditPost]
+  def startProcessing(): KStream[AProcessor.RedditURL, RawWebData]
 
   /*
     Part 4 get topology
@@ -60,18 +60,18 @@ abstract class AProcessor(
 }
 
 case class PatternProcessor(pattern: Pattern, props: Properties = AProcessor.getProperties()) extends AProcessor(props) {
-//  override def getStream(builder: StreamsBuilder): KStream[RedditURL, TotalRedditPost] = builder.stream[RedditURL, TotalRedditPost](pattern)
-  override def startProcessing(): KStream[AProcessor.RedditURL, TotalRedditPost] =
-    builder.stream[AProcessor.RedditURL, TotalRedditPost](pattern)
+//  override def getStream(builder: StreamsBuilder): KStream[RedditURL, RawWebData] = builder.stream[RedditURL, RawWebData](pattern)
+  override def startProcessing(): KStream[AProcessor.RedditURL, RawWebData] =
+    builder.stream[AProcessor.RedditURL, RawWebData](pattern)
 }
 
 case class TopicNameProcessor(topic: String, props: Properties = AProcessor.getProperties()) extends AProcessor(props) {
-//  override def getStream(builder: StreamsBuilder): KStream[RedditURL, TotalRedditPost] = builder.stream[RedditURL, TotalRedditPost](topic)
-  override def startProcessing(): KStream[AProcessor.RedditURL, TotalRedditPost] = {
-    val stream = builder.stream[AProcessor.RedditURL, TotalRedditPost](topic)
+//  override def getStream(builder: StreamsBuilder): KStream[RedditURL, RawWebData] = builder.stream[RedditURL, RawWebData](topic)
+  override def startProcessing(): KStream[AProcessor.RedditURL, RawWebData] = {
+    val stream = builder.stream[AProcessor.RedditURL, RawWebData](topic)
 
     println("Printing from startProcessing")
-    stream.print(Printed.toSysOut[RedditURL, TotalRedditPost])
+    stream.print(Printed.toSysOut[RedditURL, RawWebData])
 
     stream
   }

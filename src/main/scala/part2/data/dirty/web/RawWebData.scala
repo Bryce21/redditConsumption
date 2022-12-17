@@ -1,8 +1,10 @@
-package part2.data.test.dirty.web
+package part2.data.dirty.web
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import part2.data.test.dirty.IRawData
+import org.apache.kafka.common.serialization.Serde
+import part2.data.dirty.IRawData
+import part2.implicits._
 
 /*
   This represents the total json of what is consumed from the dirty kafka topic
@@ -27,4 +29,6 @@ case class RawWebData(
 object RawWebData {
   implicit val decoder: Decoder[RawWebData] = deriveDecoder[RawWebData]
   implicit val encoder: Encoder[RawWebData] = deriveEncoder[RawWebData]
+
+  implicit val serializer: Serde[RawWebData] = serde[RawWebData]
 }

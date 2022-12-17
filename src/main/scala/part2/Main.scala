@@ -1,9 +1,9 @@
 package part2
 
 import org.apache.kafka.streams.kstream.Printed
-
 import part2.AProcessor.RedditURL
-import part2.data.TotalRedditPost
+import part2.data.dirty.web.RawWebData
+
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -18,7 +18,7 @@ object Main {
     val stream = processor.startProcessing()
 
 
-    stream.print(Printed.toSysOut[RedditURL, TotalRedditPost])
+    stream.print(Printed.toSysOut[RedditURL, RawWebData])
 
     val topology = processor.buildTopology
 

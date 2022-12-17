@@ -1,10 +1,10 @@
-package part2.data.test.dirty.web.comment
+package part2.data.dirty.web.comment
 
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder, HCursor, Json}
 import cats.syntax.functor._
 import io.circe.syntax.EncoderOps
-import part2.data.test.dirty.web.shared.{IChildrenArrayWrapper, IDataWrapper}
+import part2.data.dirty.web.shared.{IChildrenArrayWrapper, IDataWrapper}
 
 sealed trait ICommentReply {}
 

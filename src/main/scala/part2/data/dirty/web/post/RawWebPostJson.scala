@@ -1,8 +1,8 @@
-package part2.data.test.dirty.web.post
+package part2.data.dirty.web.post
 
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import part2.data.test.shared.web.{AllAwardings, IWebPostDataProperties}
+import part2.data.web.{AllAwardings, IWebPostDataProperties}
 
 case class RawWebPostJson(
                            subreddit: String,

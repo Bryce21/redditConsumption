@@ -1,13 +1,12 @@
 package part2
 
 
-import part2.data.post._
-import part2.data.{PostData, TotalPostData, TotalRedditPost}
 import io.circe.literal._
+import part2.data.dirty.web.RawWebData
 
 object TestHelper {
 
-  def createTotalPostFromJson: TotalRedditPost = {
+  def createRawWebData: RawWebData = {
     json"""
          {
             "data": [
@@ -102,94 +101,94 @@ object TestHelper {
 
             ]
          }
-          """.as[TotalRedditPost].toOption.get
+          """.as[RawWebData].toOption.get
   }
 
-
-  def createPostData(
-                      subreddit: String = "subreddit",
-                      title: String = "title",
-                      upvote_ratio: String = "upvote_ratio",
-                      total_awards_received: Int = 0,
-                      author_fullname: String = "author_fullname",
-                      score: Long = 1L,
-                      created: Long = 10000L,
-                      over_18: Boolean = false,
-                      all_awardings: List[all_awardings] = List(
-                        new all_awardings(
-                          "name",
-                          1,
-                          1
-                        )
-                      ),
-                      subreddit_id: String = "subreddit_id",
-                      id: String = "id",
-                      author: String = "author",
-                      num_comments: Int = 1,
-                      created_utc: Long = 20000L,
-                      is_video: Boolean = false
-                    ): PostData = {
-    PostData(
-      data = childWrapper(
-        children = List[children](
-          children(
-            data = new data(
-              subreddit = subreddit,
-              title = title,
-              upvote_ratio = upvote_ratio,
-              total_awards_received = total_awards_received,
-              author_fullname = author_fullname,
-              score = score,
-              created = created,
-              over_18 = over_18,
-              all_awardings = all_awardings,
-              subreddit_id = subreddit_id,
-              id = id,
-              author = author,
-              num_comments = num_comments,
-              created_utc = created_utc,
-              is_video = is_video
-
-            )
-          )
-        )
-      )
-    )
-  }
-
-  def createTotalPost(
-                       subreddit: String = "subreddit",
-                       title: String = "title",
-                       upvote_ratio: String = "upvote_ratio",
-                       total_awards_received: Int = 0,
-                       author_fullname: String = "author_fullname",
-                       score: Long = 1L,
-                       created: Long = 10000L,
-                       over_18: Boolean = false,
-                       all_awardings: List[all_awardings] = List(
-                         new all_awardings(
-                           name = "name",
-                           coin_price = 1,
-                           count = 1
-                         )
-                       ),
-                       subreddit_id: String = "subreddit_id",
-                       id: String = "id",
-                       author: String = "author",
-                       num_comments: Int = 1,
-                       created_utc: Long = 20000L,
-                       is_video: Boolean = false
-                     ): TotalRedditPost = {
-    TotalRedditPost(
-      data = List[TotalPostData](
-        createPostData(
-          subreddit,
-          title
-        ),
-//        TotalPostData(
-//          CommentData()
+//
+//  def createPostData(
+//                      subreddit: String = "subreddit",
+//                      title: String = "title",
+//                      upvote_ratio: String = "upvote_ratio",
+//                      total_awards_received: Int = 0,
+//                      author_fullname: String = "author_fullname",
+//                      score: Long = 1L,
+//                      created: Long = 10000L,
+//                      over_18: Boolean = false,
+//                      all_awardings: List[all_awardings] = List(
+//                        new all_awardings(
+//                          "name",
+//                          1,
+//                          1
+//                        )
+//                      ),
+//                      subreddit_id: String = "subreddit_id",
+//                      id: String = "id",
+//                      author: String = "author",
+//                      num_comments: Int = 1,
+//                      created_utc: Long = 20000L,
+//                      is_video: Boolean = false
+//                    ): PostData = {
+//    PostData(
+//      data = childWrapper(
+//        children = List[children](
+//          children(
+//            data = new data(
+//              subreddit = subreddit,
+//              title = title,
+//              upvote_ratio = upvote_ratio,
+//              total_awards_received = total_awards_received,
+//              author_fullname = author_fullname,
+//              score = score,
+//              created = created,
+//              over_18 = over_18,
+//              all_awardings = all_awardings,
+//              subreddit_id = subreddit_id,
+//              id = id,
+//              author = author,
+//              num_comments = num_comments,
+//              created_utc = created_utc,
+//              is_video = is_video
+//
+//            )
+//          )
 //        )
-      )
-    )
-  }
+//      )
+//    )
+//  }
+//
+//  def createTotalPost(
+//                       subreddit: String = "subreddit",
+//                       title: String = "title",
+//                       upvote_ratio: String = "upvote_ratio",
+//                       total_awards_received: Int = 0,
+//                       author_fullname: String = "author_fullname",
+//                       score: Long = 1L,
+//                       created: Long = 10000L,
+//                       over_18: Boolean = false,
+//                       all_awardings: List[all_awardings] = List(
+//                         new all_awardings(
+//                           name = "name",
+//                           coin_price = 1,
+//                           count = 1
+//                         )
+//                       ),
+//                       subreddit_id: String = "subreddit_id",
+//                       id: String = "id",
+//                       author: String = "author",
+//                       num_comments: Int = 1,
+//                       created_utc: Long = 20000L,
+//                       is_video: Boolean = false
+//                     ): TotalRedditPost = {
+//    TotalRedditPost(
+//      data = List[TotalPostData](
+//        createPostData(
+//          subreddit,
+//          title
+//        ),
+////        TotalPostData(
+////          CommentData()
+////        )
+//      )
+//    )
+//  }
 }

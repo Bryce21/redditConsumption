@@ -1,12 +1,12 @@
-package part2.data.test.dirty.web
+package part2.data.dirty.web
 
 import cats.syntax.functor._
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.syntax.EncoderOps
 import io.circe.{Decoder, Encoder, Json}
-import part2.data.test.dirty.web.comment.IRawWebCommentJson
-import part2.data.test.dirty.web.post.RawWebPostJson
-import part2.data.test.dirty.web.shared.{IChildrenArrayWrapper, IDataWrapper}
+import part2.data.dirty.web.comment.IRawWebCommentJson
+import part2.data.dirty.web.post.RawWebPostJson
+import part2.data.dirty.web.shared.{IChildrenArrayWrapper, IDataWrapper}
 
 sealed trait IWebPostOrComment {}
 

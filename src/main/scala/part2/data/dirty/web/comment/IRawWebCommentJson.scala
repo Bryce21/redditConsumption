@@ -1,4 +1,4 @@
-package part2.data.test.dirty.web.comment
+package part2.data.dirty.web.comment
 
 import io.circe.{Decoder, Encoder, Json}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}

@@ -1,4 +1,4 @@
-package part2.data.test.shared.web
+package part2.data.web
 
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder}

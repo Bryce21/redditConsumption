@@ -3,7 +3,7 @@ package part2
 import io.circe.literal.JsonStringContext
 import io.circe.syntax.EncoderOps
 import org.scalatest.funspec.AnyFunSpec
-import part2.data.test.dirty.web.{IWebPostOrComment, RawWebCommentData, RawWebData, RawWebPostData}
+import part2.data.dirty.web.{IWebPostOrComment, RawWebCommentData, RawWebData, RawWebPostData}
 
 class DecodingSpec() extends AnyFunSpec {
 
