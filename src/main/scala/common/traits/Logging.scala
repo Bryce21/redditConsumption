@@ -1,4 +1,4 @@
-package traits
+package common.traits
 
 import org.slf4j.{Logger, LoggerFactory}
 

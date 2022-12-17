@@ -8,7 +8,7 @@ Get data from subreddits. Still need to figure that out
 
 Produce that data to kafka. Raw json of the reddit post
 
-Read that data in spark streaming. Process it.
+Read that data in part3.spark streaming. Process it.
 
 Output back to another kafka topic or straight to elasticsearch
 Kibana dashboard to explain data
@@ -24,7 +24,7 @@ Get containers setup
     Kafka
 Get some example data of reddit posts to figure out layout
 Have some manual scripts to produce that data
-Get spark consuming from kafka
+Get part3.spark consuming from kafka
 Produce to elasticsearch
 
 

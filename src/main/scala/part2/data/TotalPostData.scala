@@ -1,14 +1,43 @@
+package part2.data
+
+import io.circe.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import part2.data.comment.dataInComment
+import part2.data.post.childWrapper
+import cats.syntax.functor._
+import io.circe.syntax.EncoderOps
+import org.apache.kafka.common.serialization.Serde
+import part2.implicits._
+
+//import io.circe.{Decoder, Encoder}
+//import io.circe.generic.codec.DerivedAsObjectCodec.deriveCodec
+//import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+//import io.circe.syntax._
+//import org.apache.kafka.common.serialization.Serde
+//import part2.data.comment.data
+//import part2.data.post.childWrapper
+//import part2.implicits._
+
+
+
+/*
+Simplified json from reddit post
+First item in array is Post data
+Second item in array is Comment data
+
+This trait represents the two formats.
+The two case classes representing both indexes needs to extend this trait
 [
   {
-    "kind": "Listing",
-    "data": {
-      "children": [
+    kind: "Listing",
+    data: {
+      children: [
         {
-          "kind": "ts",
-          "data": {
+          kind: "ts",
+          data: {
             "subreddit": "oddlysatisfying",
             "title": "Freshy Fallen Snow",
-            "upvote_ratio": ".97",
+            "upvote_ratio": .97,
             "total_awards_received": 7,
             "author_fullname": "t2_7m66z",
             "score": 28339,
@@ -19,7 +48,8 @@
                 "name": "Silver",
                 "coin_price": 100,
                 "count": 1
-              }
+              },
+
             ],
             "subreddit_id": "t5_2x93b",
             "id": "z201r0",
@@ -36,6 +66,7 @@
     "kind": "Listing",
     "data": [
       {
+        // these are all comments
         "children": [
           {
             "kind": "t1",
@@ -43,14 +74,14 @@
               "subreddit_id": "t5_2x93b",
               "total_awards_received": 0,
               "subreddit": "oddlysatisfying",
-              "replies": {
+              "replies": { // this can be empty string??
                 "kind": "Listing",
                 "data": {
                   "children": [
                     {
                       "kind": "t1",
                       "data": {
-                        "parent_id": "t1_iynr1o9",
+                        // same comment format as parent
                         "subreddit_id": "t5_2x93b",
                         "total_awards_received": 0,
                         "subreddit": "oddlysatisfying",
@@ -64,8 +95,7 @@
                         "controversiality": 0,
                         "depth": 2,
                         "edited": false,
-                        "score": 5,
-                        "author_fullname": "t2_r1waz"
+
                       }
                     }
                   ]
@@ -82,11 +112,52 @@
               "edited": false,
               "created": 1669145149,
               "depth": 1,
-              "controversiality": 0
+              "controversiality": 0,
             }
+
           }
         ]
       }
+
     ]
+
   }
 ]
+
+ */
+
+sealed trait TotalPostData {}
+
+
+
+case class PostData(
+                     data: childWrapper
+                   ) extends TotalPostData
+
+object PostData {
+  implicit val PostDataDecoder: Decoder[PostData] = deriveDecoder[PostData]
+  implicit val PostDataEncoder: Encoder[PostData] = deriveEncoder[PostData]
+}
+
+case class CommentData(
+                        data: List[dataInComment]
+                      ) extends TotalPostData
+
+object CommentData {
+  implicit val decoder: Decoder[CommentData] = deriveDecoder[CommentData]
+  implicit val encoder: Encoder[CommentData] = deriveEncoder[CommentData]
+}
+
+object TotalPostData {
+  implicit val decoder: Decoder[TotalPostData] = List[Decoder[TotalPostData]](
+    Decoder[PostData].widen,
+    Decoder[CommentData].widen
+  ).reduceLeft(_ or _)
+
+  implicit val encoder: Encoder[TotalPostData] = Encoder.instance {
+    case v : PostData => v.asJson
+    case v : CommentData => v.asJson
+  }
+
+  implicit val implicitSerde: Serde[TotalPostData] = serde[TotalPostData]
+}

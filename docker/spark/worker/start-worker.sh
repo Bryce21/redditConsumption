@@ -5,8 +5,8 @@
 
 mkdir -p $SPARK_WORKER_LOG
 
-export SPARK_HOME=/spark
+export SPARK_HOME=/part3.spark
 
-ln -sf /dev/stdout $SPARK_WORKER_LOG/spark-worker.out
+ln -sf /dev/stdout $SPARK_WORKER_LOG/part3.spark-worker.out
 
-/spark/sbin/../bin/spark-class org.apache.spark.deploy.worker.Worker --webui-port $SPARK_WORKER_WEBUI_PORT $SPARK_MASTER >> $SPARK_WORKER_LOG/spark-worker.out
+/part3.spark/sbin/../bin/part3.spark-class org.apache.part3.spark.deploy.worker.Worker --webui-port $SPARK_WORKER_WEBUI_PORT $SPARK_MASTER >> $SPARK_WORKER_LOG/part3.spark-worker.out
