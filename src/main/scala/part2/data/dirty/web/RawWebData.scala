@@ -3,6 +3,9 @@ package part2.data.dirty.web
 import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import org.apache.kafka.common.serialization.Serde
+import part2.data.cleaned.ICleanedData
+import part2.data.cleaned.web.WebCleanedData
+import part2.data.cleaned.web.comment.WebCleanedComment
 import part2.data.dirty.IRawData
 import part2.implicits._
 
@@ -24,7 +27,21 @@ import part2.implicits._
  */
 case class RawWebData(
                        data: List[IWebPostOrComment]
-                     ) extends IRawData
+                     ) extends IRawData {
+
+  override def clean(): ICleanedData = {
+    // the expectation is there will only ever be two items in the list
+    // the reddit web json is in a really weird format
+    // mutation is not great but brute force first approach - prefer builder over translate everything all at once
+    var cleanedData: WebCleanedData = null
+    var cleanedComments: List[WebCleanedComment] = List.empty
+    val _ = data.map {
+      case v: RawWebPostData => cleanedData = v.toCleanedNoComments
+      case v: RawWebCommentData => cleanedComments = v.getCleanedComments
+    }
+    cleanedData.copy(comments = cleanedComments)
+  }
+}
 
 object RawWebData {
   implicit val decoder: Decoder[RawWebData] = deriveDecoder[RawWebData]

@@ -2,7 +2,7 @@ package part2
 
 import org.apache.kafka.streams.kstream.Printed
 import part2.AProcessor.RedditURL
-import part2.data.dirty.web.RawWebData
+import part2.data.cleaned.ICleanedData
 
 
 object Main {
@@ -15,10 +15,10 @@ object Main {
 
 
 
-    val stream = processor.startProcessing()
+    val stream = processor.process()
 
 
-    stream.print(Printed.toSysOut[RedditURL, RawWebData])
+    stream.print(Printed.toSysOut[RedditURL, ICleanedData])
 
     val topology = processor.buildTopology
 

@@ -4,6 +4,8 @@ import io.circe.{Decoder, Encoder, Json}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.syntax.EncoderOps
 import cats.syntax.functor._
+import part2.data.cleaned.web.comment.WebCleanedComment
+import part2.data.web.IWebCommentProperties
 
 sealed trait IRawWebCommentJson {}
 object IRawWebCommentJson {
@@ -43,7 +45,28 @@ case class CommentWithData(
                   depth: Int,
                   controversiality: Int,
                   replies: ICommentReply
-                ) extends IRawWebCommentJson
+                ) extends IRawWebCommentJson with IWebCommentProperties {
+  def toCleanedComment(parentId: Option[String] = None): WebCleanedComment = {
+    WebCleanedComment(
+      subreddit_id = subreddit_id,
+      total_awards_received = total_awards_received,
+      subreddit = subreddit,
+      id = id,
+      gilded = gilded,
+      author = author,
+      created_utc = created_utc,
+      parent_id = parent_id,
+      score = score,
+      author_fullname = author_fullname,
+      body = body,
+      edited = edited,
+      created = created,
+      depth = depth,
+      controversiality = controversiality,
+      parentCommentId = parentId
+    )
+  }
+}
 
 object CommentWithData {
   implicit val decoder: Decoder[CommentWithData] = deriveDecoder[CommentWithData]
